@@ -1,0 +1,23 @@
+# Rust / Soroban
+target
+.soroban
+.stellar
+
+# Node / Next.js
+node_modules
+web/.next
+web/out
+web/node_modules
+**/node_modules
+
+# Env (los valores públicos van en web/.env.local.example, que SÍ se versiona)
+.env
+.env.local
+web/.env.local
+
+# Sistema
+.DS_Store
+*.log
+
+# Claude Code local
+.claude/settings.local.json
