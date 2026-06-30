@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PULSO Tanda — Pitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBFAF6; --ink:#16241F; --ink-soft:#5C6B63;
+    --emerald:#0E7C5A; --emerald-deep:#0A5C43; --emerald-tint:#E6F1EA;
+    --amber:#D8973A; --amber-deep:#A96D1C; --amber-tint:#F9EFDA;
+    --danger:#B5481F; --line:#E5E8E2;
+    --display:'Fraunces',Georgia,serif; --body:'Hanken Grotesk',system-ui,sans-serif; --mono:'Space Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:var(--body); color:var(--ink); overflow:hidden;
+    background:
+      radial-gradient(1200px 600px at 85% -10%, var(--amber-tint), transparent 60%),
+      radial-gradient(1000px 700px at -10% 0%, var(--emerald-tint), transparent 55%),
+      var(--paper);
+  }
+  .deck{height:100vh;width:100vw;position:relative}
+  .slide{
+    position:absolute;inset:0;display:none;
+    padding:8vh 9vw;flex-direction:column;justify-content:center;
+    animation:fade .35s ease both;
+  }
+  .slide.active{display:flex}
+  @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+  .eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--emerald-deep);margin-bottom:22px}
+  h1{font-family:var(--display);font-weight:600;letter-spacing:-.02em;line-height:1.05;font-size:clamp(38px,6.4vw,82px)}
+  h1 em{font-style:italic;color:var(--emerald-deep)}
+  h2{font-family:var(--display);font-weight:600;letter-spacing:-.01em;line-height:1.08;font-size:clamp(30px,4.6vw,56px)}
+  .lead{font-size:clamp(18px,2.2vw,26px);color:var(--ink-soft);max-width:24ch;margin-top:18px;line-height:1.45}
+  .big{font-size:clamp(20px,2.4vw,30px);max-width:26ch;line-height:1.4;margin-top:8px}
+  p.note{color:var(--ink-soft);font-size:clamp(15px,1.6vw,19px);max-width:40ch;margin-top:16px;line-height:1.5}
+  .mono{font-family:var(--mono)}
+  ul{list-style:none;margin-top:22px;display:flex;flex-direction:column;gap:14px}
+  ul li{font-size:clamp(17px,2vw,24px);display:flex;gap:14px;align-items:flex-start;line-height:1.35}
+  ul li .b{color:var(--emerald);font-weight:700;font-family:var(--mono);flex:none}
+  .quote{font-family:var(--display);font-style:italic;font-size:clamp(22px,3vw,38px);line-height:1.3;max-width:20ch;color:var(--ink)}
+  .row{display:flex;gap:48px;align-items:center;flex-wrap:wrap}
+  .col{flex:1;min-width:280px}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;font-size:14px;font-weight:600;background:var(--emerald-tint);color:var(--emerald-deep)}
+  .pill.amber{background:var(--amber-tint);color:var(--amber-deep)}
+
+  .stats{display:flex;gap:40px;margin-top:40px;flex-wrap:wrap}
+  .stat b{font-family:var(--display);font-size:clamp(30px,4vw,48px);display:block;line-height:1}
+  .stat span{color:var(--ink-soft);font-size:15px}
+
+  .card{background:#fffefb;border:1px solid var(--line);border-radius:16px;padding:20px 22px;box-shadow:0 8px 24px rgba(22,36,31,.06)}
+  .arch{display:flex;flex-direction:column;gap:10px;font-family:var(--mono);font-size:clamp(13px,1.5vw,17px)}
+  .arch .step{display:flex;align-items:center;gap:12px}
+  .arch .box{background:var(--emerald-tint);color:var(--emerald-deep);border:1px solid rgba(14,124,90,.3);border-radius:10px;padding:8px 14px;font-weight:700}
+  .arch .box.amber{background:var(--amber-tint);color:var(--amber-deep);border-color:rgba(168,109,28,.35)}
+  .arch .arr{color:var(--ink-soft)}
+
+  /* Wheel motif */
+  .wheel{position:relative;width:min(38vh,340px);aspect-ratio:1;margin:0 auto}
+  .wheel .center{position:absolute;inset:50% auto auto 50%;transform:translate(-50%,-50%);width:46%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 32%,#fffdf6,var(--amber-tint));border:1px solid var(--amber);display:grid;place-items:center;text-align:center;box-shadow:0 10px 30px rgba(168,109,28,.16)}
+  .wheel .center small{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber-deep);display:block}
+  .wheel .center b{font-family:var(--display);font-size:clamp(28px,4vw,42px);color:var(--ink)}
+  .wheel .seat{position:absolute;width:17%;aspect-ratio:1;margin:-8.5% 0 0 -8.5%;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-weight:700;background:#fff;border:2px solid var(--line);color:var(--ink-soft);box-shadow:0 8px 24px rgba(22,36,31,.06)}
+  .wheel .seat.paid{border-color:var(--emerald);background:var(--emerald-tint);color:var(--emerald-deep)}
+  .wheel .seat.turn{border-color:var(--amber);background:linear-gradient(180deg,var(--amber),var(--amber-deep));color:#fff;transform:scale(1.15)}
+  .wheel .seat.due{border-color:var(--danger);background:#f7e6de;color:var(--danger)}
+
+  .brand{position:fixed;left:9vw;bottom:4vh;display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:600;font-size:18px}
+  .brand .dot{width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--emerald),var(--emerald-deep));display:grid;place-items:center;color:#fff;font-size:13px}
+  .counter{position:fixed;right:9vw;bottom:4vh;font-family:var(--mono);font-size:14px;color:var(--ink-soft)}
+  .nav{position:fixed;right:9vw;bottom:calc(4vh + 26px);display:flex;gap:8px}
+  .nav button{font-family:var(--body);border:1px solid var(--line);background:#fff;border-radius:8px;width:36px;height:32px;cursor:pointer;font-size:16px;color:var(--ink)}
+  .hint{position:fixed;left:50%;bottom:4vh;transform:translateX(-50%);font-size:12px;color:var(--ink-soft);font-family:var(--mono)}
+
+  /* dark cover */
+  .slide.cover{background:radial-gradient(120% 120% at 80% 110%, rgba(216,151,58,.35), transparent 55%),linear-gradient(150deg,#0f8a63,var(--emerald-deep) 60%,#07452f);color:#fff}
+  .slide.cover .eyebrow{color:rgba(255,255,255,.75)}
+  .slide.cover h1{color:#fff}
+  .slide.cover h1 em{color:var(--amber-tint)}
+  .slide.cover .lead{color:rgba(255,255,255,.85)}
+  .slide.cover .wheel .seat{background:rgba(255,255,255,.92)}
+
+  @media print{
+    @page{size:1280px 720px;margin:0}
+    html,body{overflow:visible;height:auto}
+    .deck{height:auto}
+    .slide{position:relative;display:flex!important;height:720px;width:1280px;page-break-after:always;animation:none}
+    .brand,.counter,.nav,.hint{position:absolute}
+  }
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- 1 COVER -->
+  <section class="slide cover active">
+    <div class="row">
+      <div class="col">
+        <div class="eyebrow">Hackathon PULSO · Colombia</div>
+        <h1>La natillera de toda la vida, <em>a prueba de incumplidos</em>.</h1>
+        <p class="lead">Ahorro rotativo de grupo, on-chain sobre Stellar. Con garantía que cubre al que no paga y rendimiento sobre tu ahorro.</p>
+      </div>
+      <div class="col" style="flex:0 0 auto">
+        <div class="wheel">
+          <div class="center"><small>Pozo</small><b>500</b><small>ronda 1</small></div>
+          <div class="seat turn" style="left:50%;top:0">★</div>
+          <div class="seat paid" style="left:97.5%;top:34.5%">2</div>
+          <div class="seat due"  style="left:79%;top:90%">3</div>
+          <div class="seat paid" style="left:21%;top:90%">4</div>
+          <div class="seat paid" style="left:2.5%;top:34.5%">5</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 PROBLEM -->
+  <section class="slide">
+    <div class="eyebrow">El problema</div>
+    <h2>Todos hemos estado en una cadena.<br>Y todos conocemos al que se voló.</h2>
+    <ul>
+      <li><span class="b">→</span> Millones de colombianos ahorran en <b>natilleras / tandas</b>: cuota por ronda, cada quien se lleva el pozo por turnos.</li>
+      <li><span class="b">→</span> Es ahorro sin banco y sin intereses — pero <b>se rompe cuando alguien deja de pagar</b>.</li>
+      <li><span class="b">→</span> Se lleva en una libreta y en la confianza. No es seguro, no escala.</li>
+    </ul>
+  </section>
+
+  <!-- 3 SOLUTION -->
+  <section class="slide">
+    <div class="eyebrow">La solución</div>
+    <h2>La misma tanda — pero las reglas las hace el contrato.</h2>
+    <ul>
+      <li><span class="b">1</span> Cada miembro <b>bloquea un colateral</b> al entrar.</li>
+      <li><span class="b">2</span> Si alguien no paga, el contrato <b>cubre la cuota desde su colateral</b>.</li>
+      <li><span class="b">3</span> El del turno <b>cobra el pozo completo, siempre</b>.</li>
+      <li><span class="b">4</span> El colateral <b>genera rendimiento</b> → cero comisión.</li>
+    </ul>
+  </section>
+
+  <!-- 4 MONEY MOMENT -->
+  <section class="slide">
+    <div class="row">
+      <div class="col">
+        <div class="eyebrow">El momento que lo cambia todo</div>
+        <h2>Uno no paga.<br>El del turno cobra completo igual.</h2>
+        <p class="note">Al cerrar la ronda, el contrato descuenta la cuota faltante del colateral del incumplido y paga el pozo completo a quien le toca. On-chain, verificable, <b>por menos de un centavo</b>.</p>
+        <span class="pill amber" style="margin-top:22px">DEMO EN VIVO ▶</span>
+      </div>
+      <div class="col" style="flex:0 0 auto">
+        <div class="wheel">
+          <div class="center"><small>Pozo · XLM</small><b>300</b><small>ronda 1</small></div>
+          <div class="seat turn" style="left:50%;top:0">★</div>
+          <div class="seat paid" style="left:93%;top:75%">2</div>
+          <div class="seat due"  style="left:7%;top:75%">3</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 WHY STELLAR -->
+  <section class="slide">
+    <div class="eyebrow">Por qué Stellar, por qué ahora</div>
+    <h2>El riel correcto para el dinero de la gente.</h2>
+    <ul>
+      <li><span class="b">¢</span> Comisiones de <b>fracciones de centavo</b> (tx reales: ~0.002 XLM).</li>
+      <li><span class="b">@</span> <b>Privy</b>: se entra con el correo. Sin frases semilla, sin instalar nada.</li>
+      <li><span class="b">$</span> Conecta con <b>dólares digitales (USDC)</b> y rieles locales vía <b>anchors SEP-24</b> — el puente natural a la demanda de dólar digital en Colombia.</li>
+    </ul>
+  </section>
+
+  <!-- 6 ARCHITECTURE -->
+  <section class="slide">
+    <div class="eyebrow">Cómo funciona</div>
+    <h2>Cuatro piezas de la lista SCF, componiendo de verdad.</h2>
+    <div class="arch" style="margin-top:28px">
+      <div class="step"><span class="box">Privy login</span><span class="arr">→ wallet Stellar sin seed →</span><span class="box">Frontend</span></div>
+      <div class="step"><span class="arr" style="padding-left:8px">invoca + firma →</span><span class="box">Contrato TandaManager</span><span class="arr">→ colateral →</span><span class="box">Vault de yield · DeFindex</span></div>
+      <div class="step"><span class="box amber">Anchor SEP-24</span><span class="arr">COP ↔ USDC (dólar digital)</span></div>
+    </div>
+    <p class="note" style="margin-top:26px">El vault usa la misma interfaz que DeFindex: el mismo código corre en testnet (mock) y en mainnet (DeFindex real). Solo cambia la dirección.</p>
+  </section>
+
+  <!-- 7 TRACTION -->
+  <section class="slide">
+    <div class="eyebrow">Tracción técnica · lo que YA funciona</div>
+    <h2>No es una idea. Está corriendo.</h2>
+    <ul>
+      <li><span class="b">✓</span> Contrato desplegado en <b>testnet</b>; ciclo completo verificado on-chain: <span class="mono">join → contribute → payout → finish</span>.</li>
+      <li><span class="b">✓</span> App funcional: login con Google, crear/unirse por <b>código de 6 letras</b>, rueda de turnos.</li>
+      <li><span class="b">✓</span> 4 pruebas automatizadas. Repo público. Camino a <b>mainnet</b> con DeFindex real.</li>
+    </ul>
+    <div class="stats">
+      <div class="stat"><b>~0.002</b><span>XLM por operación</span></div>
+      <div class="stat"><b>0%</b><span>de comisión</span></div>
+      <div class="stat"><b>0</b><span>ROSCAs en el directorio SCF (whitespace)</span></div>
+    </div>
+  </section>
+
+  <!-- 8 VALIDATION -->
+  <section class="slide">
+    <div class="eyebrow">Validación · customer discovery</div>
+    <div class="quote">"[Pega aquí una cita textual fuerte de una entrevista sobre el que no pagó.]"</div>
+    <p class="note" style="margin-top:24px">3 entrevistas a personas que han estado en natilleras. El dolor del incumplido es unánime; el colateral es la pieza que faltaba. <span class="mono">[reemplazar con hallazgos reales]</span></p>
+  </section>
+
+  <!-- 9 MARKET -->
+  <section class="slide">
+    <div class="eyebrow">Mercado e impacto</div>
+    <h2>De la cuadra a la app. De pesos a dólar digital.</h2>
+    <ul>
+      <li><span class="b">→</span> Millones de colombianos en natilleras informales hoy.</li>
+      <li><span class="b">→</span> <b>Whitespace real</b>: no existe ninguna ROSCA on-chain en el ecosistema Stellar.</li>
+      <li><span class="b">→</span> Siguiente: piloto con una natillera real, anchor SEP-24 productivo, mainnet.</li>
+    </ul>
+  </section>
+
+  <!-- 10 CLOSE -->
+  <section class="slide cover">
+    <div class="eyebrow">PULSO Tanda · [nombres del equipo]</div>
+    <h1>La natillera de toda la vida, <em>ahora a prueba de incumplidos</em>.</h1>
+    <p class="lead">github.com/Nicolas6879/pulso-tanda</p>
+  </section>
+
+</div>
+
+<div class="brand"><span class="dot">🤝</span> PULSO Tanda</div>
+<div class="nav"><button id="prev">‹</button><button id="next">›</button></div>
+<div class="counter"><span id="cur">1</span> / <span id="total">10</span></div>
+<div class="hint">← → para navegar · Ctrl+P para exportar a PDF</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;
+  document.getElementById('total').textContent=slides.length;
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    document.getElementById('cur').textContent=i+1;
+  }
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown')show(i+1);
+    if(e.key==='ArrowLeft'||e.key==='PageUp')show(i-1);
+    if(e.key==='Home')show(0); if(e.key==='End')show(slides.length-1);
+  });
+  document.getElementById('next').onclick=()=>show(i+1);
+  document.getElementById('prev').onclick=()=>show(i-1);
+  show(0);
+</script>
+</body>
+</html>
