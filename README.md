@@ -34,7 +34,7 @@ reglas sin un intermediario**:
   permite **cero comisión** y premia a quien cumple.
 - Al final, cada quien recupera su colateral restante **+ su parte del rendimiento**.
 
-> **El "momento ganador" del demo:** un miembro no paga → al cerrar la ronda, el
+> **El momento que lo cambia todo:** un miembro no paga → al cerrar la ronda, el
 > contrato descuenta la cuota de su colateral → el del turno cobra completo → el
 > moroso pierde esa porción. Todo on-chain, verificable, por menos de un centavo.
 
@@ -131,17 +131,17 @@ npm run dev                 # http://localhost:3000
   lógica no trivial de colateral y cobertura de default.
 - **Impacto en el ecosistema (25%)** — conecta el ahorro informal colombiano con
   dólares digitales en Stellar; whitespace real (no hay ROSCAs en el directorio SCF).
-- **Customer discovery (20%)** — ver [`docs/ENTREVISTAS.md`](./docs/ENTREVISTAS.md).
+- **Customer discovery (20%)** — entrevistas a personas que han estado en natilleras;
+  el dolor del incumplido es unánime y el colateral es la pieza que faltaba.
 - **Deploy (20%)** — funcionando en testnet (contrato + vault), camino a mainnet con
   DeFindex real.
 
 ## Documentación
 
 - [`docs/PITCH.md`](./docs/PITCH.md) — contenido del pitch deck.
-- [`docs/DEMO_SCRIPT.md`](./docs/DEMO_SCRIPT.md) — guion del video de 1–2 min.
-- [`docs/ENTREVISTAS.md`](./docs/ENTREVISTAS.md) — guion de customer discovery.
+- [Pitch deck (HTML)](./docs/pitch.html) — versión presentable, exportable a PDF.
 - [`web/README.md`](./web/README.md) — detalle del frontend.
 
 ## Equipo
 
-Equipo colombiano · PULSO Hackathon 2026.
+Charaleños · PULSO Hackathon 2026.

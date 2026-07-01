@@ -7,7 +7,7 @@
 
 ### 1 · Portada
 **PULSO Tanda** — La natillera de toda la vida, on-chain y a prueba de incumplidos.
-_Hackathon PULSO · Colombia · [nombres del equipo]_
+_Hackathon PULSO · Colombia · Charaleños_
 
 ### 2 · El problema (que todos conocen)
 - La **natillera/tanda** es ahorro de toda la vida en Colombia: grupo cerrado, cuota
